@@ -1,0 +1,24 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scripts.js",
+  "scripts": {
+    "dev": "parcel index.html",
+    "build": "parcel build index.html styles.scss scripts.js --public-url ./ -d build",
+    "clear": "rm -rf .cache"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Robson3991/cognity-todo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Robson3991/cognity-todo/issues"
+  },
+  "homepage": "https://github.com/Robson3991/cognity-todo#readme",
+  "devDependencies": {
+    "parcel": "^2.0.0"
+  }
+}
