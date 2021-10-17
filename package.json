@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "parcel index.html",
     "build": "parcel build index.html styles.scss scripts.js --public-url ./ -d build",
-    "clear": "rm -rf .cache"
+    "clear": "rm -rf .parcel-cache"
   },
   "repository": {
     "type": "git",
