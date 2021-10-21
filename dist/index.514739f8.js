@@ -459,9 +459,87 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"gfUIa":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _addTask = require("./js/addTask");
+var _addTaskDefault = parcelHelpers.interopDefault(_addTask);
+var _removeElement = require("./js/removeElement");
+var _removeElementDefault = parcelHelpers.interopDefault(_removeElement);
 document.addEventListener('DOMContentLoaded', ()=>{
+    const form = document.querySelector('#todoForm');
+    const textArea = form.querySelector('#todoMessage');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const textAreaValue = textArea.value;
+        if (!!textAreaValue != false) _addTaskDefault.default(textAreaValue);
+    });
+    _removeElementDefault.default();
 });
 
-},{}]},["hMIiS","gfUIa"], "gfUIa", "parcelRequire5af9")
+},{"./js/addTask":"d5JIy","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","./js/removeElement":"7orId"}],"d5JIy":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function addTask(text) {
+    const element = document.createElement("div");
+    element.classList.add("element");
+    //pobieram zawartość templatki
+    const elementInner = document.querySelector("#elementTemplate").content.cloneNode(true);
+    //wrzucam do elementu
+    element.append(elementInner);
+    //tworzę datę
+    const date = new Date();
+    const dateText = `${date.getDate()} - ${date.getMonth() + 1} - ${date.getFullYear()} godz.: ${date.getHours()}:${date.getMinutes()}`;
+    element.querySelector(".element-date").innerText = dateText;
+    //wstawiam tekst
+    element.querySelector(".element-text").innerText = text;
+    //i wrzucam element do listy
+    todoList.append(element);
+}
+exports.default = addTask;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"ciiiV":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, '__esModule', {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === 'default' || key === '__esModule' || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"7orId":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// element.classList.contains("element-delete") - sprawdzenie czy element zawiera daną klasę
+// element.closest(".klasa-elementu").remove() - usunięcie najbliższego elementu o danej klasie
+function removeElement() {
+    const taskList = document.querySelector('#todoList');
+    taskList.addEventListener('click', function(e) {
+        const element = e.target;
+        if (element.classList.contains("element-delete")) element.closest(".element").remove();
+    });
+}
+exports.default = removeElement;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}]},["hMIiS","gfUIa"], "gfUIa", "parcelRequire5af9")
 
 //# sourceMappingURL=index.514739f8.js.map

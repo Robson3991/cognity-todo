@@ -4,4 +4,3 @@
 4. Skorzystać z funkcji removeElement
 5. Napisać funkcję do filtrowania elementów listy
 6. Napisać funkcję pobierającą liste tasków i zapisanie jej w localstorage
-7. Napisać funkcję ustawiającą wartość inputów na podstawie wartości z localstorage
