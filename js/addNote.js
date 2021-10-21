@@ -1,3 +1,5 @@
+import saveNotes from "./storage/saveNotes";
+
 function addTask(text) {
     const element = document.createElement("div");
     element.classList.add("element");
@@ -18,6 +20,9 @@ function addTask(text) {
 
     //i wrzucam element do listy
     todoList.append(element);
+
+    // używam funkcji saveNotes do zapisania notatki w local storage
+    saveNotes(text, dateText);
 }
 
 export default addTask;

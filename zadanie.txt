@@ -4,3 +4,11 @@
 4. Skorzystać z funkcji removeElement
 5. Napisać funkcję do filtrowania elementów listy
 6. Napisać funkcję pobierającą liste tasków i zapisanie jej w localstorage
+
+Extra - do samodzielnego wykonania:
+
+a) odczytanie listy notatek z localstorage i ustawienie jej po wczytaniu aplikacji
+
+b) usunięcie notatki z localstorage w momencie usuwania jej z aplikacji
+
+c) czyszczenie textarea po dodaniu notatki

@@ -460,10 +460,10 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"gfUIa":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _addTask = require("./js/addTask");
-var _addTaskDefault = parcelHelpers.interopDefault(_addTask);
-var _removeElement = require("./js/removeElement");
-var _removeElementDefault = parcelHelpers.interopDefault(_removeElement);
+var _addNote = require("./js/addNote");
+var _addNoteDefault = parcelHelpers.interopDefault(_addNote);
+var _removeNote = require("./js/removeNote");
+var _removeNoteDefault = parcelHelpers.interopDefault(_removeNote);
 var _filterNotes = require("./js/filterNotes");
 var _filterNotesDefault = parcelHelpers.interopDefault(_filterNotes);
 document.addEventListener('DOMContentLoaded', ()=>{
@@ -472,32 +472,30 @@ document.addEventListener('DOMContentLoaded', ()=>{
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         const textAreaValue = textArea.value;
-        if (!!textAreaValue != false) _addTaskDefault.default(textAreaValue);
+        if (!!textAreaValue != false) _addNoteDefault.default(textAreaValue);
     });
-    _removeElementDefault.default();
+    _removeNoteDefault.default();
     _filterNotesDefault.default();
 });
 
-},{"./js/addTask":"d5JIy","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","./js/removeElement":"7orId","./js/filterNotes":"6ZO2D"}],"d5JIy":[function(require,module,exports) {
+},{"./js/filterNotes":"6ZO2D","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","./js/addNote":"7DSGE","./js/removeNote":"40dwe"}],"6ZO2D":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-function addTask(text) {
-    const element = document.createElement("div");
-    element.classList.add("element");
-    //pobieram zawartość templatki
-    const elementInner = document.querySelector("#elementTemplate").content.cloneNode(true);
-    //wrzucam do elementu
-    element.append(elementInner);
-    //tworzę datę
-    const date = new Date();
-    const dateText = `${date.getDate()} - ${date.getMonth() + 1} - ${date.getFullYear()} godz.: ${date.getHours()}:${date.getMinutes()}`;
-    element.querySelector(".element-date").innerText = dateText;
-    //wstawiam tekst
-    element.querySelector(".element-text").innerText = text;
-    //i wrzucam element do listy
-    todoList.append(element);
+// element.style.setProperty("display", ""); - usunięcie stylu display none do elementu
+// element.style.setProperty("display", "none"); - dodanie style display none do elementu
+function filterNotes() {
+    const searchInput = document.querySelector('#todoSearch');
+    searchInput.addEventListener('input', function(e) {
+        const notes = document.querySelectorAll('.element-text');
+        const value = e.target.value;
+        notes.forEach(function(note) {
+            const reg = new RegExp(value);
+            if (reg.test(note.innerText)) note.parentElement.style.setProperty("display", "block");
+            else note.parentElement.style.setProperty("display", "none");
+        });
+    });
 }
-exports.default = addTask;
+exports.default = filterNotes;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"ciiiV":[function(require,module,exports) {
 exports.interopDefault = function(a) {
@@ -529,7 +527,55 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"7orId":[function(require,module,exports) {
+},{}],"7DSGE":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _saveNotes = require("./storage/saveNotes");
+var _saveNotesDefault = parcelHelpers.interopDefault(_saveNotes);
+function addTask(text) {
+    const element = document.createElement("div");
+    element.classList.add("element");
+    //pobieram zawartość templatki
+    const elementInner = document.querySelector("#elementTemplate").content.cloneNode(true);
+    //wrzucam do elementu
+    element.append(elementInner);
+    //tworzę datę
+    const date = new Date();
+    const dateText = `${date.getDate()} - ${date.getMonth() + 1} - ${date.getFullYear()} godz.: ${date.getHours()}:${date.getMinutes()}`;
+    element.querySelector(".element-date").innerText = dateText;
+    //wstawiam tekst
+    element.querySelector(".element-text").innerText = text;
+    //i wrzucam element do listy
+    todoList.append(element);
+    // używam funkcji saveNotes do zapisania notatki w local storage
+    _saveNotesDefault.default(text, dateText);
+}
+exports.default = addTask;
+
+},{"./storage/saveNotes":"cUsHW","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"cUsHW":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// parametr task może przyjąć wartość add lub remove
+function saveNotes(note, date) {
+    const storageName = "notesList";
+    const noteData = {
+        content: note,
+        date: date
+    };
+    if (localStorage.getItem(storageName) === null) localStorage.setItem(storageName, JSON.stringify([
+        noteData
+    ]));
+    else {
+        const taskList = JSON.parse(localStorage.getItem(storageName));
+        taskList.push(noteData);
+        console.log(taskList);
+        console.log(noteData);
+        localStorage.setItem(storageName, JSON.stringify(taskList));
+    }
+}
+exports.default = saveNotes;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"40dwe":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 // element.classList.contains("element-delete") - sprawdzenie czy element zawiera daną klasę
@@ -542,25 +588,6 @@ function removeElement() {
     });
 }
 exports.default = removeElement;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"6ZO2D":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-// element.style.setProperty("display", ""); - usunięcie stylu display none do elementu
-// element.style.setProperty("display", "none"); - dodanie style display none do elementu
-function filterNotes() {
-    const searchInput = document.querySelector('#todoSearch');
-    searchInput.addEventListener('input', function(e) {
-        const notes = document.querySelectorAll('.element-text');
-        const value = e.target.value;
-        notes.forEach(function(note) {
-            const reg = new RegExp(value);
-            if (reg.test(note.innerText)) note.parentElement.style.setProperty("display", "block");
-            else note.parentElement.style.setProperty("display", "none");
-        });
-    });
-}
-exports.default = filterNotes;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}]},["hMIiS","gfUIa"], "gfUIa", "parcelRequire5af9")
 

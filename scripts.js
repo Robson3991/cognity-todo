@@ -1,5 +1,5 @@
-import addTask from './js/addTask';
-import removeElement from './js/removeElement';
+import addNote from './js/addNote';
+import removeNote from './js/removeNote';
 import filterNotes from './js/filterNotes';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -13,10 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const textAreaValue = textArea.value;
         
         if (!!textAreaValue != false) {
-            addTask(textAreaValue);
+            addNote(textAreaValue);
         }
     });
 
-    removeElement();
+    removeNote();
     filterNotes();
 });
