@@ -1,5 +1,6 @@
 import addTask from './js/addTask';
 import removeElement from './js/removeElement';
+import filterNotes from './js/filterNotes';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
             addTask(textAreaValue);
         }
     });
-    
+
     removeElement();
+    filterNotes();
 });

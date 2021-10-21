@@ -464,6 +464,8 @@ var _addTask = require("./js/addTask");
 var _addTaskDefault = parcelHelpers.interopDefault(_addTask);
 var _removeElement = require("./js/removeElement");
 var _removeElementDefault = parcelHelpers.interopDefault(_removeElement);
+var _filterNotes = require("./js/filterNotes");
+var _filterNotesDefault = parcelHelpers.interopDefault(_filterNotes);
 document.addEventListener('DOMContentLoaded', ()=>{
     const form = document.querySelector('#todoForm');
     const textArea = form.querySelector('#todoMessage');
@@ -473,9 +475,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
         if (!!textAreaValue != false) _addTaskDefault.default(textAreaValue);
     });
     _removeElementDefault.default();
+    _filterNotesDefault.default();
 });
 
-},{"./js/addTask":"d5JIy","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","./js/removeElement":"7orId"}],"d5JIy":[function(require,module,exports) {
+},{"./js/addTask":"d5JIy","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","./js/removeElement":"7orId","./js/filterNotes":"6ZO2D"}],"d5JIy":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 function addTask(text) {
@@ -539,6 +542,25 @@ function removeElement() {
     });
 }
 exports.default = removeElement;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"6ZO2D":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// element.style.setProperty("display", ""); - usunięcie stylu display none do elementu
+// element.style.setProperty("display", "none"); - dodanie style display none do elementu
+function filterNotes() {
+    const searchInput = document.querySelector('#todoSearch');
+    searchInput.addEventListener('input', function(e) {
+        const notes = document.querySelectorAll('.element-text');
+        const value = e.target.value;
+        notes.forEach(function(note) {
+            const reg = new RegExp(value);
+            if (reg.test(note.innerText)) note.parentElement.style.setProperty("display", "block");
+            else note.parentElement.style.setProperty("display", "none");
+        });
+    });
+}
+exports.default = filterNotes;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}]},["hMIiS","gfUIa"], "gfUIa", "parcelRequire5af9")
 
